@@ -1,19 +1,21 @@
 ALPHABETS = 26
 
-def caesar_cipher(str, right_shift)
-  return str if str.empty? ||
-                right_shift.zero? ||
-                (right_shift % ALPHABETS).zero?
+def caesar_cipher(input, shift)
+  return input if input.empty? ||
+                  shift.zero? ||
+                  (shift % ALPHABETS).zero?
 
-  str.chars.map do |character|
-    if character.match(/[a-zA-Z]/)
-      base = (character >= 'a' ? 'a' : 'A').ord
-      old_index = character.ord - base
-      new_index = (old_index + right_shift) % ALPHABETS
+  input.chars.map { |char| shift_char(char, shift) }.join
+end
 
-      (new_index + base).chr
-    else
-      character
-    end
-  end.join
+def shift_char(char, shift)
+  if char.match(/[a-zA-Z]/)
+    base = (char >= 'a' ? 'a' : 'A').ord
+    old_index = char.ord - base
+    new_index = (old_index + shift) % ALPHABETS
+
+    (new_index + base).chr
+  else
+    char
+  end
 end
